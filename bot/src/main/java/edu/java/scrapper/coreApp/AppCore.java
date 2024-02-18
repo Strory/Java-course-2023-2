@@ -9,9 +9,13 @@ import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.request.SetMyCommands;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class AppCore {
+
+    Logger logger = Logger.getLogger("AppCore");
     CommandHandler commandHandler;
+
     public AppCore(CommandHandler commandHandler) {
         this.commandHandler = commandHandler;
     }
@@ -23,9 +27,10 @@ public class AppCore {
         startMainCycle(bot);
     }
 
+    @SuppressWarnings("MagicNumber")
     private void startMainCycle(TelegramBot bot) {
         int lastUpdateId = 0;
-        while(true) {
+        while (true) {
             GetUpdates getUpdates = new GetUpdates().limit(100).offset(lastUpdateId + 1).timeout(0);
             GetUpdatesResponse updatesResponse = bot.execute(getUpdates);
             List<Update> updates = updatesResponse.updates();
@@ -46,7 +51,7 @@ public class AppCore {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.warning(e.getMessage());
             }
         }
     }
