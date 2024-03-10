@@ -1,4 +1,4 @@
-package edu.java.scrapper.coreApp;
+package edu.java.bot.core;
 
 import com.pengrad.telegrambot.model.BotCommand;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package edu.java.scrapper.coreApp;
+package edu.java.bot.core;
 
 public interface LinkHandler {
     String addLink(String url);

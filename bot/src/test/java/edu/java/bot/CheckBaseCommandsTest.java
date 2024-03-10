@@ -2,12 +2,12 @@ package edu.java.bot;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import edu.java.scrapper.coreApp.CommandHandler;
-import edu.java.scrapper.coreApp.MainHandler;
+import edu.java.bot.core.CommandHandler;
+import edu.java.bot.core.MainHandler;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class Lesson1Test {
+public class CheckBaseCommandsTest {
     @Test
     @DisplayName("Проверка команды /start")
     void checkCommandStart() {
