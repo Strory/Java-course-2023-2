@@ -18,6 +18,6 @@ public class SpringRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         AppCore core = new AppCore(applicationConfig.telegramToken());
-        core.startCore();
+        core.eventUpdate();
     }
 }

@@ -1,6 +1,13 @@
 package edu.java.bot.core;
 
 import com.pengrad.telegrambot.model.BotCommand;
+import edu.java.bot.core.commands.Command;
+import edu.java.bot.core.commands.DummyCommand;
+import edu.java.bot.core.commands.HelpCommand;
+import edu.java.bot.core.commands.ListCommand;
+import edu.java.bot.core.commands.StartCommand;
+import edu.java.bot.core.commands.TrackCommand;
+import edu.java.bot.core.commands.UntrackCommand;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,14 +22,13 @@ public class MainHandler implements CommandHandler {
 
     @Override
     public String getAnswer(String text, String user) {
-        return switch (text) {
-            case startCommand -> "start command";
-            case helpCommand -> getHelp();
-            case trackCommand -> "track command";
-            case untrackCommand -> "untrack command";
-            case listCommand -> "list command";
-            default -> "bad request";
-        };
+        Command list = new ListCommand(new DummyCommand(null));
+        Command untrack = new UntrackCommand(list);
+        Command track = new TrackCommand(untrack);
+        Command help = new HelpCommand(track);
+        Command start = new StartCommand(help);
+
+        return start.getAnswer(text);
     }
 
     @SuppressWarnings("MultipleStringLiterals")
@@ -35,14 +41,5 @@ public class MainHandler implements CommandHandler {
         commands.add(new BotCommand(untrackCommand, "stop tracking"));
         commands.add(new BotCommand(listCommand, "watch list"));
         return commands;
-    }
-
-    @SuppressWarnings("MultipleStringLiterals")
-    private String getHelp() {
-        return startCommand + " " + "registration" + "\n"
-            + helpCommand + " " + "available commands" + "\n"
-            + trackCommand + " " + "start tracking" + "\n"
-            + untrackCommand + " " + "stop tracking" + "\n"
-            + listCommand + " " + "watch list" + "\n";
     }
 }
